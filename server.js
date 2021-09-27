@@ -27,7 +27,7 @@ app.get('/docs', swaggerUi.setup(swaggerDoc));
 app.get("/", (req, res) => res.status(200).send(`
 
 <h1>Hello users !<h1/>
-<h1>click on this <a href="/docs">link<a/> to get  documentation on the blog post api !<a href="/docs">click me<a/></h1> 
+<h1>click on this <a href="/docs">link<a/> to get  documentation on the meta-care api !<a href="/docs">click me<a/></h1> 
 
 
 `));
