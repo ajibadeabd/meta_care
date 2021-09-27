@@ -1,0 +1,386 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0",
+      "title": "Meta-care",
+      "description": "Documentation for Meta-care backend service",
+      "contact": {}
+    },
+    "basePath": "/api/movie",
+   
+    "consumes": [
+      "application/json"
+    ],
+    "paths": {
+      "/comment": {
+        "post": {
+          "description": "route to create a commet on a certain movie",
+          "summary": "route to create a commet on a certain movie",
+          "tags": [
+            "movie"
+          ],
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "description": "This is the request body object containing the user blog post message",
+              "schema": {
+                "$ref": "#/definitions/CommentData"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "comment created  successfully"
+                  }
+                  ,
+                  "data": {
+                    "$ref": "#/definitions/CommentDataResponse"
+                  },
+                  
+                  "success": {
+                    "type": "boolean",
+                    "description": "true"
+                  }
+                  
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid request payload",
+              "schema": {
+                "$ref": "#/definitions/errorCommentDataResponse",
+                "success": {
+                  "type": "boolean",
+                  "description": "false"
+                }  
+              }
+              
+            }
+          }
+        }
+        }
+    ,
+    "/get-comment": {
+      "get": {
+        "description": "get movie comments",
+        "summary": "get movie comments ",
+        "tags": [
+          "movie"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "comment fetched   successfully"
+                }
+                ,"data": 
+                    {"$ref": "#/definitions/CommentDataResponse"}
+,                
+                "success": {
+                  "type": "boolean",
+                  "description": "true"
+                }
+                
+              }
+            }
+          }
+        }
+      }
+      }
+  ,
+  "/list": {
+    "get": {
+      "description": "get list of movies",
+      "summary": "get list of movies ",
+      "tags": [
+        "movie"
+      ],
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        
+      ],
+      "responses": {
+        "200": {
+          "description": "Success",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "description": "Value is 'success'"
+              }
+              ,
+              "data": {
+                "$ref": "#/definitions/movieDataResponse"
+              },
+              
+              "success": {
+                "type": "boolean",
+                "description": "true"
+              }
+              
+            }
+          }
+        }
+      }
+    }
+    }
+  ,
+  "/gender/{filter_by}": {
+    "get": {
+      "description": "get movie character",
+      "summary": "create a blog ",
+      "tags": [
+        "movie"
+      ],
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "filter_by",
+          "required": true,
+          "description": "gender to be filter with",
+          "schema": {
+            "$ref": "#/definitions/movieDataResponse"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Success",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "description": "Value character fetched   successfully"
+              }
+              ,
+              "data": {
+                "$ref": "#/definitions/BlogResponse"
+              },
+              
+              "success": {
+                "type": "boolean",
+                "description": "true"
+              }
+              
+            }
+          }
+        }
+      }
+    }
+    }
+  ,
+  "/{sort}/{filter_by}": {
+    "get": {
+      "description": "fetch characters by the sorted value",
+      "summary": "fetch characters by the sorted value , example sort by gender ,name and heigth",
+      "tags": [
+        "movie"
+      ],
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+            "in": "path",
+            "name": "sort",
+            "required": true,
+            "description": "sort with"
+            
+          }    ,    {
+            "in": "path",
+            "name": "filter_by",
+            "required": true,
+            "description": " filter by the sort value with"
+            
+          }
+      ],
+      "responses": {
+        "200": {
+          "description": "Success",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "description": "Value is 'success'"
+              }
+              ,
+              "data": {
+                "$ref": "#/definitions/movieDataResponse"
+              },
+              
+              "success": {
+                "type": "boolean",
+                "description": "true"
+              }
+              
+            }
+          }
+        },
+        "400": {
+          "description": "Invalid request payload",
+          "schema": {
+            "$ref": "#/definitions/errorCommentDataResponse",
+            "success": {
+              "type": "boolean",
+              "description": "false"
+            }  
+          }
+          
+        }
+      }
+    }
+    }
+ 
+  
+    },
+    
+    "definitions": {
+  
+      "CommentData": {
+        "type": "object",
+        "title": "Comment",
+        "required": [
+          "movieName",
+          "message"
+        ],
+        "properties": {
+        "message": {
+          "type": "string",
+          "description": "comment message "
+        },
+        "movieName": {
+            "type": "string",
+            "description": "movie name to comment on "
+          }
+        }
+      },
+      
+      "CommentDataResponse": {
+        "type": "object",
+        "title": "CommentDataResponse",
+        
+        "properties": {
+            "_id": {
+                "type": "integer",
+                "description": "6143a04f134dd23234eaf3b7 "
+        },
+        "movieTitle": {
+          "type": "string",
+          "description": "movie name to comment "
+        },
+        "ipAddress": {
+          "type": "string",
+          "description": "movie name to comment "
+        },
+        "comment": {
+          "type": "string",
+          "description": "movie comment "
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date",
+          "description": "blog created date "
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date",
+          "description": "blog updated date "
+        }
+        
+        }
+      },
+      
+      "movieDataResponse": {
+        "type": "object",
+        "title": "movieDataResponse",
+        
+        "properties": {
+          
+        "openingCrawl": {
+          "type": "string",
+          "description": "openingCrawl details about the movie"
+        },
+        "name": {
+          "type": "string",
+          "description": "movie name "
+        },
+        "commentsCount": {
+          "type": "number",
+          "description": "comments Count of each movie "
+        },
+        "release_date": {
+          "type": "string",
+          "format": "date",
+          "description": "date at whicch  each movie was released "
+        }
+        
+        }
+      },
+      "errorCommentDataResponse": {
+        "type": "object",
+        "title": "errorMessage",
+        
+        "properties": {
+          
+        "message": {
+            "type": "string",
+            "description": "invalid reques or payload"
+          } ,
+          "data": {
+            "type": "array",
+            "description": "error message"
+          },
+          "success": {
+            "type": "string",
+            "description": "false"
+          }
+        }
+      }
+      
+    }
+  }
+
+   
